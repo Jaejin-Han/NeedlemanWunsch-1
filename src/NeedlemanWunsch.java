@@ -20,10 +20,11 @@ public class NeedlemanWunsch {
 		
 		initializeMatrix(sequenceOne, sequenceTwo);
 		initializeTraceback(sequenceOne, sequenceTwo);
-		printMatrix();
+//		printMatrix();
 		fillOutMatrix();
 		
 		printMatrix();
+		System.out.println();
 		alignmentScoring();
 		
 		
@@ -136,12 +137,12 @@ public class NeedlemanWunsch {
 	public static void fillOutMatrix(){
 		for (int col = 2; col < matrix[0].length; col++){
 			for (int row = 2; row < matrix.length; row++){
-				System.out.println("row: " + row + ", col: " + col);
-				System.out.println("top letter: " + matrix[0][col]);
-				System.out.println("top: " + matrix[row-1][col]);
-				System.out.println("left letter: " + matrix[row][0]);
-				System.out.println("left: " + matrix[row][col-1]);
-				System.out.println("corner: "+ matrix[row-1][col-1]);
+//				System.out.println("row: " + row + ", col: " + col);
+//				System.out.println("top letter: " + matrix[0][col]);
+//				System.out.println("top: " + matrix[row-1][col]);
+//				System.out.println("left letter: " + matrix[row][0]);
+//				System.out.println("left: " + matrix[row][col-1]);
+//				System.out.println("corner: "+ matrix[row-1][col-1]);
 				
 				
 				
@@ -161,7 +162,7 @@ public class NeedlemanWunsch {
 				
 				//get corner score
 				if (topLetter.equals(leftLetter)){
-					System.out.println("going here");
+//					System.out.println("going here");
 					cornerScore = corner + matchScore;
 				} else {
 					cornerScore = corner + mismatchScore;
@@ -174,7 +175,7 @@ public class NeedlemanWunsch {
 				
 				if (cornerScore >= topScore && cornerScore >= leftScore){
 					max = cornerScore;
-					System.out.println("cornerScore wins: " + max);
+//					System.out.println("cornerScore wins: " + max);
 					//traceback matrix
 					if (cornerScore == max){
 						traceback += "d";
@@ -182,7 +183,7 @@ public class NeedlemanWunsch {
 				}
 				if (topScore >= cornerScore && topScore >= leftScore){
 					max = topScore;
-					System.out.println("topScore wins: " + max);
+//					System.out.println("topScore wins: " + max);
 					//traceback matrix
 					if (topScore == max){
 						traceback += "u";
@@ -190,7 +191,7 @@ public class NeedlemanWunsch {
 				} 
 				if (leftScore >= cornerScore && leftScore >= topScore){
 					max = leftScore;
-					System.out.println("leftScore wins: " + max);
+//					System.out.println("leftScore wins: " + max);
 					//traceback matrix
 					if (leftScore == max){
 						traceback += "l";
@@ -200,24 +201,25 @@ public class NeedlemanWunsch {
 				tracebackMatrix[row][col] = traceback;
 				
 				matrix[row][col] = Integer.toString(max);
-				System.out.println("entering into the matrix");
-				System.out.println();
+//				System.out.println("entering into the matrix");
+//				System.out.println();
 				
 				
 				
 			}
-			System.out.println("next row");
+//			System.out.println("next row");
 		}
 		
 	}
 	
 	public static void alignmentScoring(){
+		System.out.println("ALIGNMENT AND SCORING:");
 		int row = tracebackMatrix.length - 1;
 		int col = tracebackMatrix[0].length - 1;
 		
-		System.out.println("starting row:" + row);
-		System.out.println("starting col:" + col);
-		
+//		System.out.println("starting row:" + row);
+//		System.out.println("starting col:" + col);
+//		
 		String first = "";
 		String second = "";
 		String score = "";
@@ -227,16 +229,16 @@ public class NeedlemanWunsch {
 		String topLetter;
 		String leftLetter;
 		
-		System.out.println();
+//		System.out.println();
 		while (!current.equals("_")){
 			current = tracebackMatrix[row][col];
 			topLetter = tracebackMatrix[0][col];
 			leftLetter = tracebackMatrix[row][0];
 			
-			System.out.println("top letter: " + topLetter);
-			System.out.println("left letter: " + leftLetter);
-			System.out.println("col: " + col);
-			System.out.println("row: " + row);
+//			System.out.println("top letter: " + topLetter);
+//			System.out.println("left letter: " + leftLetter);
+//			System.out.println("col: " + col);
+//			System.out.println("row: " + row);
 			
 			
 			
@@ -255,7 +257,7 @@ public class NeedlemanWunsch {
 				
 				row-=1;
 				col-=1;
-				System.out.println("going diagonal");
+//				System.out.println("going diagonal");
 			} else if (current.substring(0, 1).equals("l")){
 				first = "\t" +topLetter + first;
 				second = "\t_" + second;
@@ -263,7 +265,7 @@ public class NeedlemanWunsch {
 				
 				numericScore -= 2;
 				col-=1;
-				System.out.println("going left");
+//				System.out.println("going left");
 			} else if (current.substring(0, 1).equals("u")){
 				first = "\t_" + first;
 				second = "\t" + leftLetter + second;
@@ -271,9 +273,9 @@ public class NeedlemanWunsch {
 				
 				numericScore -= 2;
 				row-=1;
-				System.out.println("going right");
+//				System.out.println("going right");
 			}
-			System.out.println();
+//			System.out.println();
 		}
 		
 		System.out.println(first);
