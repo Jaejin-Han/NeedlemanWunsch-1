@@ -6,6 +6,7 @@ public class NeedlemanWunsch {
 	private static int mismatchScore;
 	private static int indelScore;
 	private static String[][] matrix;
+	private static String[][] tracebackMatrix;
 	
 	public NeedlemanWunsch(int matchScore, int mismatchScore, int indelScore) {
 			
@@ -16,11 +17,11 @@ public class NeedlemanWunsch {
 	}
 	
 	public static void inputSequences(String sequenceOne, String sequenceTwo) {
-		sequence1 = sequenceOne;
-		sequence2 = sequenceTwo;
 		
 		initializeMatrix(sequenceOne, sequenceTwo);
-		
+		printMatrix();
+		fillOutMatrix();
+		printMatrix();
 		
 		
 		
@@ -78,6 +79,82 @@ public class NeedlemanWunsch {
 		}
 	}
 	
+	
+	
+	public static void fillOutMatrix(){
+		for (int col = 2; col < matrix[0].length; col++){
+			for (int row = 2; row < matrix.length; row++){
+				System.out.println("row: " + row + ", col: " + col);
+				System.out.println("top letter: " + matrix[0][col]);
+				System.out.println("top: " + matrix[row-1][col]);
+				System.out.println("left letter: " + matrix[row][0]);
+				System.out.println("left: " + matrix[row][col-1]);
+				System.out.println("corner: "+ matrix[row-1][col-1]);
+				
+				
+				
+				
+				int top = Integer.parseInt(matrix[row-1][col]);
+				int left = Integer.parseInt(matrix[row][col-1]);
+				int corner = Integer.parseInt(matrix[row-1][col-1]);
+				
+				
+				//check if you need to change to indel score
+				int topScore = top - 2;
+				int leftScore = left - 2;
+				int cornerScore;
+				String topLetter = matrix[0][col];
+				String leftLetter = matrix[row][0];
+				
+				
+				//get corner score
+				if (topLetter.equals(leftLetter)){
+					System.out.println("going here");
+					cornerScore = corner + matchScore;
+				} else {
+					cornerScore = corner + mismatchScore;
+				}
+				
+				int max = 0;
+				
+				
+				String traceback = "";
+				
+				if (cornerScore >= topScore && cornerScore >= leftScore){
+					max = cornerScore;
+					System.out.println("cornerScore wins: " + max);
+					//traceback matrix
+					if (cornerScore == max){
+						traceback += "d";
+					}
+				} else if (topScore >= cornerScore && topScore >= leftScore){
+					max = topScore;
+					System.out.println("topScore wins: " + max);
+					//traceback matrix
+					if (topScore == max){
+						traceback += "u";
+					}
+				} else {
+					max = leftScore;
+					System.out.println("leftScore wins: " + max);
+					//traceback matrix
+					if (leftScore == max){
+						traceback += "l";
+					}
+				}
+				
+				matrix[row][col] = Integer.toString(max);
+				System.out.println("entering into the matrix");
+				System.out.println();
+				
+				
+				
+			}
+			System.out.println("next row");
+		}
+		
+	}
+	
 	public static void printMatrix(){
 		for (int i = 0; i < matrix.length; i++){
 			for (int j =0; j < matrix[0].length;j++){
@@ -90,8 +167,8 @@ public class NeedlemanWunsch {
 	
 	public static void main(String[] args){
 		NeedlemanWunsch test = new NeedlemanWunsch(1, -1, -2);
-		test.inputSequences("GAACT", "CATTG");
-		test.printMatrix();
+		test.inputSequences("GAAC", "CATTG");
+		
 	}
 	
 	
