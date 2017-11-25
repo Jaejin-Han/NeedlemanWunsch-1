@@ -313,7 +313,7 @@ public class NeedlemanWunsch {
 	
 	public static void main(String[] args){
 		NeedlemanWunsch test = new NeedlemanWunsch(1, -1, -2);
-		test.inputSequences("GACAATCA", "GCC");
+		test.inputSequences("GTTCA", "GCC");
 	}
 	
 	
