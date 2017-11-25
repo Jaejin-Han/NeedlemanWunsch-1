@@ -19,12 +19,20 @@ public class NeedlemanWunsch {
 		sequence1 = sequenceOne;
 		sequence2 = sequenceTwo;
 		
-		matrix = new String[(sequenceTwo.length() + 2)][sequenceOne.length() +2];
+		initializeMatrix(sequenceOne, sequenceTwo);
+		
+		
+		
+		
+	}
+	
+	public static void initializeMatrix(String inputOne, String inputTwo){
+		matrix = new String[(inputTwo.length() + 2)][inputOne.length() +2];
 		matrix[0][0] = "x";
 		
 		
-		String[] first = sequenceOne.split("");
-		String[] second = sequenceTwo.split("");
+		String[] first = inputOne.split("");
+		String[] second = inputTwo.split("");
 		
 		
 		//put first sequence in the first row of matrix
@@ -58,7 +66,7 @@ public class NeedlemanWunsch {
 			
 			matrix[1][i] = Integer.toString(initIndex);
 //			printMatrix();
-			System.out.println("i: " + i);
+//			System.out.println("i: " + i);
 			initIndex += -2;
 		}
 		
@@ -68,10 +76,6 @@ public class NeedlemanWunsch {
 			matrix[i][1] = Integer.toString(initIndex);
 			initIndex += -2;
 		}
-		
-		
-		
-		
 	}
 	
 	public static void printMatrix(){
@@ -86,7 +90,7 @@ public class NeedlemanWunsch {
 	
 	public static void main(String[] args){
 		NeedlemanWunsch test = new NeedlemanWunsch(1, -1, -2);
-		test.inputSequences("GAATC", "CATTGA");
+		test.inputSequences("GAACT", "CATTG");
 		test.printMatrix();
 	}
 	
