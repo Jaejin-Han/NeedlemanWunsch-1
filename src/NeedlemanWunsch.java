@@ -229,6 +229,9 @@ public class NeedlemanWunsch {
 		String topLetter;
 		String leftLetter;
 		
+		String match = Integer.toString(matchScore);
+		String mismatch = Integer.toString(mismatchScore);
+		String indel = Integer.toString(indelScore);
 //		System.out.println();
 		while (!current.equals("_")){
 			current = tracebackMatrix[row][col];
@@ -247,11 +250,11 @@ public class NeedlemanWunsch {
 				first = "\t" + topLetter + first;
 				second = "\t" + leftLetter + second;
 				if (topLetter.equals(leftLetter)){
-					score = "\t+1" + score;
-					numericScore += 1;
+					score = "\t+" + match + score;
+					numericScore += matchScore;
 				} else {
-					score = "\t-1" + score;
-					numericScore -= 1;
+					score = "\t" + mismatch + score;
+					numericScore += mismatchScore;
 				}
 				
 				
@@ -261,17 +264,17 @@ public class NeedlemanWunsch {
 			} else if (current.substring(0, 1).equals("l")){
 				first = "\t" +topLetter + first;
 				second = "\t_" + second;
-				score = "\t-2" + score;
+				score = "\t" + indel + score;
 				
-				numericScore -= 2;
+				numericScore += indelScore;
 				col-=1;
 //				System.out.println("going left");
 			} else if (current.substring(0, 1).equals("u")){
 				first = "\t_" + first;
 				second = "\t" + leftLetter + second;
-				score = "\t-2" + score;
+				score = "\t" + indel + score;
 				
-				numericScore -= 2;
+				numericScore += indelScore;
 				row-=1;
 //				System.out.println("going right");
 			}
@@ -284,7 +287,7 @@ public class NeedlemanWunsch {
 		String line = "\t";
 		String tabs = "";
 		for (int i = 0; i < (second.length()/2); i++){
-			line += "_______";
+			line += "________";
 			tabs += "\t";
 		}
 		System.out.println(line);
@@ -312,8 +315,8 @@ public class NeedlemanWunsch {
 	}
 	
 	public static void main(String[] args){
-		NeedlemanWunsch test = new NeedlemanWunsch(1, -1, -2);
-		test.inputSequences("GTTCA", "GCC");
+		NeedlemanWunsch test = new NeedlemanWunsch(5, -1, -2);
+		test.inputSequences("TCCTA", "TCATA");
 	}
 	
 	
