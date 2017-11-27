@@ -295,6 +295,10 @@ public class NeedlemanWunsch {
 	}
 	
 	public static void printMatrix(){
+		System.out.println("Needleman Wunsch");
+		System.out.println("Match: " + matchScore + ", Mismatch: +" + mismatchScore + ", Gap: " + indelScore);
+		System.out.println();
+		
 		System.out.println("SCORE TABLE:");
 		for (int i = 0; i < matrix.length; i++){
 			for (int j =0; j < matrix[0].length;j++){
@@ -305,7 +309,7 @@ public class NeedlemanWunsch {
 	
 		System.out.println();
 		
-		System.out.println("TRACEBACK TABLE:");
+		System.out.println("TRACEBACK TABLE:\t(d = diagonal, u = up, l = left)");
 		for (int i = 0; i < tracebackMatrix.length; i++){
 			for (int j =0; j < tracebackMatrix[0].length;j++){
 				System.out.printf("%s \t", tracebackMatrix[i][j]);
@@ -316,7 +320,7 @@ public class NeedlemanWunsch {
 	
 	public static void main(String[] args){
 		NeedlemanWunsch test = new NeedlemanWunsch(5, -1, -2);
-		test.inputSequences("TCCTA", "TCATA");
+		test.inputSequences("CTTCA", "CTACA");
 	}
 	
 	
