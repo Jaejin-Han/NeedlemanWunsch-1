@@ -73,14 +73,14 @@ public class NeedlemanWunsch {
 			matrix[1][i] = Integer.toString(initIndex);
 //			printMatrix();
 //			System.out.println("i: " + i);
-			initIndex += -2;
+			initIndex += indelScore;
 		}
 		
 		//initialize column
 		initIndex = 0;
 		for (int i = 1; i< matrix.length; i++){
 			matrix[i][1] = Integer.toString(initIndex);
-			initIndex += -2;
+			initIndex += indelScore;
 		}
 	}
 	
@@ -282,14 +282,11 @@ public class NeedlemanWunsch {
 	
 	public static void main(String[] args){
 		long startTime = System.currentTimeMillis();
-		NeedlemanWunsch test = new NeedlemanWunsch(5, -1, -2);
-		test.inputSequences("TCCTA", "TCATA");
+		NeedlemanWunsch test = new NeedlemanWunsch(1, -1, -3);
+		test.inputSequences("TCCTAC", "CATAC");
 		long endTime   = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
-		System.out.println("TIME: " + 
-		
-				totalTime + "ms");
-		
+		System.out.println("TIME: " + totalTime + "ms");	
 	}
 	
 	
